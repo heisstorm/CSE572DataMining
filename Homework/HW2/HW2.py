@@ -5,6 +5,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 
 if __name__ == '__main__':
 
@@ -39,7 +41,7 @@ if __name__ == '__main__':
 
     # Calculate accuracy
     accuracy = accuracy_score(y_test, y_pred)
-    print(accuracy)
+    # print(accuracy)
 
     # Plot the decision tree
     plt.figure(figsize=(20, 10))
@@ -51,3 +53,23 @@ if __name__ == '__main__':
               max_depth=5,  # Limit depth for visualization purposes
               fontsize=10)
     plt.show()
+
+
+
+    # Apply five-fold cross-validation to the decision tree model
+    cv_scores = cross_val_score(decision_tree, X, y, cv=5)
+
+    # Calculate the average classification accuracy
+    average_accuracy = cv_scores.mean()
+    # print(average_accuracy)
+
+
+    # Initialize and fine-tune the random forest model
+    random_forest = RandomForestClassifier(n_estimators=100, random_state=42)
+
+    # Apply five-fold cross-validation to the random forest model
+    cv_scores_rf = cross_val_score(random_forest, X, y, cv=5)
+
+    # Calculate the average classification accuracy for the random forest model
+    average_accuracy_rf = cv_scores_rf.mean()
+    print(average_accuracy_rf)
