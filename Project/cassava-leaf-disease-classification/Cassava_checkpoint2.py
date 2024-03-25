@@ -78,9 +78,9 @@ if __name__ == '__main__':
     model = create_model(input_shape)
 
     # 检查点和提前停止
-    model_save = ModelCheckpoint('best_model.h5', save_best_only=True, monitor='val_loss', mode='min', verbose=1)
-    early_stop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True, min_delta=0.001, mode='min', verbose=1)
-    reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, verbose=1, min_delta=0.001, mode='min')
+    model_save = ModelCheckpoint('best_model.h5', save_best_only=True, monitor='loss', mode='min', verbose=1)
+    early_stop = EarlyStopping(monitor='loss', patience=5, restore_best_weights=True, min_delta=0.001, mode='min', verbose=1)
+    reduce_lr = ReduceLROnPlateau(monitor='loss', factor=0.1, patience=2, verbose=1, min_delta=0.001, mode='min')
 
     # 模型训练
     history = model.fit(
